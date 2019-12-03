@@ -2,8 +2,8 @@
 	<?php
 	function js2php($events)
 	{
-		if (isset($_POST['events'])) {
-			$events = array_filter(json_decode(json_encode($events)), $_POST["params"]);
+		if (isset($_POST['params'])) {
+			$events = array_filter($events, $_POST["params"]); // TODO: Fix error
 			echo($events);
 			echo($_POST["params"]);
 		}
@@ -30,18 +30,3 @@
 		<?php endforeach; ?>
 	<?php endif; ?>
 </article>
-
-<script>
-	var events = JSON.parse(JSON.stringify(<?php echo json_encode($events); ?>));
-
-	function searchEvents() {
-		var searchParams = document.getElementById("searchParams").value
-		var filteredEvents = JSON.stringify(events.filter(e => e.title.includes(searchParams) || e.description.includes(searchParams) || e.dateOfEvent.includes(searchParams)))
-		console.log(filteredEvents)
-		var xhttp = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject("Microsoft.XMLHTTP");
-		xhttp.open("POST", "/events", true)
-		xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded")
-		console.log(xhttp)
-		xhttp.send(`?events=${filteredEvents}`)
-	}
-</script>
