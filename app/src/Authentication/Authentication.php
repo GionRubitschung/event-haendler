@@ -74,7 +74,7 @@ class Authentication
             throw new RuntimeException("Sie haben keine Berechtigung diese Seite anzuzeigen.");
             // Unbefungte Zugriffsversuche sollten immer geloggt werden
             // z.B. mit error_log()
-            error_log();
+            error_log($php_errormsg);
             exit();
         }
     }
