@@ -1,5 +1,8 @@
 <?php 
-  session_start();
+  //start session if it doesn't exist
+  if (session_status() == PHP_SESSION_NONE){
+    session_start();
+  }
 ?>
 <!doctype html>
 <html lang="de">
