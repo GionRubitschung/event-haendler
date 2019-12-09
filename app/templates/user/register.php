@@ -9,8 +9,8 @@
 			<input required id="password1" name="password" type="password" class="form-control">
 		</div>
 		<div class="form-group">
-			<label class="control-label" for="password">Passwort bestätigen</label>
-			<input required id="password2" name="password" type="password" class="form-control">
+			<label class="control-label" for="password2">Passwort bestätigen</label>
+			<input required id="password2" name="password2" type="password" class="form-control">
 		</div>
 		<div class="form-group">
 		  	<label for="fname">Vorname</label>
@@ -25,8 +25,8 @@
 	  		<input required id="email1" name="email" type="email" class="form-control">
 		</div>
 		<div class="form-group">
-		  	<label for="email">Mail bestätigen</label>
-	  		<input required id="email2" name="email" type="email" class="form-control">
+		  	<label for="email2">Mail bestätigen</label>
+	  		<input required id="email2" name="email2" type="email" class="form-control">
 		</div>
 		<button id="send" type="submit" name="send" class="btn btn-primary" >Absenden</button>
 	</form>

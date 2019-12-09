@@ -30,6 +30,25 @@ class UserController
         $view->display();
     }
 
+    public function profile()
+    {
+        $authenticator = new Authentication();
+
+        //start session if it doesn't exist
+        if (session_status() == PHP_SESSION_NONE){
+            session_start();
+        }
+
+        // check if user is authenticated
+        $authenticator->restrictAuthenticated();
+
+        $view = new View('user/profile');
+        $view->title = 'Profil';
+        $username = $_SESSION['firstname'];
+        $view->heading = "Profil von $username";
+        $view->display();
+    }
+
     public function login()
     {
         $view = new View('user/login');
@@ -128,7 +147,7 @@ class UserController
             session_start();
         }
 
-        
+
 
     }
 

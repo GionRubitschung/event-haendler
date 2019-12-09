@@ -30,7 +30,6 @@ class Authentication
                 $_SESSION['name'] = $user->name;
                 $_SESSION['email'] = $user->email;
 
-
                 return true;
             }
         }
@@ -47,6 +46,7 @@ class Authentication
         unset($_SESSION ['loggedin']);
         unset($_SESSION['firstname']);
         unset($_SESSION['name']);
+        unset($_SESSION['email']);
 
         // Session destroy        
         session_destroy();
