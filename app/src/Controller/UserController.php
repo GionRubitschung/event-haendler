@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Repository\UserRepository;
+use App\Authentication\Authentication;
 use App\View\View;
 
 /**
@@ -21,12 +22,62 @@ class UserController
         $view->display();
     }
 
-    public function create()
+    public function register()
     {
-        $view = new View('user/create');
+        $view = new View('user/register');
         $view->title = 'Benutzer erstellen';
         $view->heading = 'Benutzer erstellen';
         $view->display();
+    }
+
+    public function profile()
+    {
+        $authenticator = new Authentication();
+
+        //start session if it doesn't exist
+        if (session_status() == PHP_SESSION_NONE){
+            session_start();
+        }
+
+        // check if user is authenticated
+        $authenticator->restrictAuthenticated();
+
+        $view = new View('user/profile');
+        $view->title = 'Profil';
+        $username = $_SESSION['firstname'];
+        $view->heading = "Profil von $username";
+        $view->display();
+    }
+
+    public function login()
+    {
+        $view = new View('user/login');
+        $view->title = 'Login';
+        $view->heading = 'Login';
+        $view->display();
+    }
+
+    public function doLogin()
+    {
+        $authenticator = new Authentication();
+
+        if(isset($_POST['send'])){
+            $email = $_POST['email'];
+            $password = $_POST['password'];
+            $statusLogon = $authenticator->login($email, $password);
+            if($statusLogon){
+                header('Location: /user/profile');
+            } else {
+                header('Location: /user/login');
+            }
+        }
+    }
+
+    public function logout(){
+        $authenticator = new Authentication();
+        $authenticator->logout();
+
+        header('Location: /user/login');
     }
 
     public function doCreate()
@@ -36,9 +87,10 @@ class UserController
             $lastName = $_POST['lname'];
             $email = $_POST['email'];
             $password = $_POST['password'];
+            $username = $_POST['username'];
 
             $userRepository = new UserRepository();
-            $userRepository->create($firstName, $lastName, $email, $password);
+            $userRepository->create($firstName, $lastName, $email, $password, $username);
         }
 
         // Anfrage an die URI /user weiterleiten (HTTP 302)

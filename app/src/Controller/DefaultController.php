@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\View\View;
+use App\Authentication\Authentication;
 
 /**
  * Der Controller ist der Ort an dem es für jede Seite, welche der Benutzer
@@ -40,6 +41,16 @@ class DefaultController
         // In diesem Fall möchten wir dem Benutzer die View mit dem Namen
         //   "default_index" rendern. Wie das genau funktioniert, ist in der
         //   View Klasse beschrieben.
+        $authenticator = new Authentication();
+
+        //start session if it doesn't exist
+        if (session_status() == PHP_SESSION_NONE){
+            session_start();
+        }
+
+        // check if user is authenticated
+        $isLoggedIn = $authenticator->isAuthenticated();
+
         $view = new View('default/index');
         $view->title = 'Startseite';
         $view->heading = 'Startseite';

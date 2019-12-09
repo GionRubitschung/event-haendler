@@ -1,6 +1,5 @@
-<div class="column pt-3 pb-3">
+<div class="column pt-3 pb-3 border-bottom">
     <div class="column">
-        <h1 class="text-center"><?= $heading; ?></h1>
         <div class="row">
             <div class="col-5"></div>
             <div class="col text-center">
@@ -35,7 +34,9 @@
                 <h3 class="text-center">Registrieren</h3>
                 <p class="text-left align-middle pt-5">
                     Erstelle ein Konto damit du deine eigenen Events erstellen kannst, Freunde zu deinen Events einladen kannst oder dich für andere Events anmelden kannst.
-                    Wenn du bereits ein Konto hast kannst du dich hier <a href="/login">einloggen</a>.
+                    <a href="/user/register">Hier kannst du dich registrieren.</a>
+                    <br>
+                    Wenn du bereits ein Konto hast kannst du dich hier <a href="/user/login">einloggen</a>.
                 </p>
             </div>
         </div>

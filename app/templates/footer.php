@@ -4,7 +4,8 @@
   <div class="container-fluid text-center text-md-left">
     <div class="row">
       <div class="col-md-6 mt-md-0 mt-3">
-        <h5 class="text-uppercase">Event Händler</h5>
+        <h5 class="text-uppercase">© 2019 Copyright:
+          <a href="/">event.haendler.ch</a></h5>
       </div>
       <hr class="clearfix w-100 d-md-none pb-3">
       <!-- Grid column -->
@@ -29,9 +30,9 @@
       </div>
     </div>
   </div>
-  <div class="footer-copyright text-center py-3">© 2019 Copyright:
+  <!-- <div class="footer-copyright text-center py-3">© 2019 Copyright:
     <a href="/">event.haendler.ch</a>
-  </div>
+  </div> -->
 </footer>
 
 <!-- JQuery -->
