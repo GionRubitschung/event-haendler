@@ -36,7 +36,7 @@ class UserRepository extends Repository
     {
         $password = password_hash($password, PASSWORD_BCRYPT);
 
-        $query = "INSERT INTO $this->tableName (username, password, name, firstName, email) VALUES (?, ?, ?, ?, ?)";
+        $query = "INSERT INTO $this->tableName (username, password, name, firstName, email, idPermission) VALUES (?, ?, ?, ?, ?, 2)";
 
         $statement = ConnectionHandler::getConnection()->prepare($query);
         $statement->bind_param('sssss', $username, $password, $lastName, $firstName, $email);
@@ -56,7 +56,7 @@ class UserRepository extends Repository
     public function readByEmail($email)
     {
         // Query erstellen
-        $query = "SELECT id, username, firstname, password FROM {$this->tableName} WHERE email=?";
+        $query = "SELECT id, username, firstname, name, email, password FROM {$this->tableName} WHERE email=?";
 
         // Datenbankverbindung anfordern und, das Query "preparen" (vorbereiten)
         // und die Parameter "binden"

@@ -64,10 +64,11 @@ class UserController
         if(isset($_POST['send'])){
             $email = $_POST['email'];
             $password = $_POST['password'];
-            $statusLogon = $authenticator->login($email, $password);
-            if($statusLogon){
+            if($authenticator->login($email, $password)){
+                // Anfrage an die URI /user/profile weiterleiten (HTTP 302)
                 header('Location: /user/profile');
             } else {
+                // Anfrage an die URI /user/login weiterleiten (HTTP 302)
                 header('Location: /user/login');
             }
         }
@@ -95,6 +96,27 @@ class UserController
 
         // Anfrage an die URI /user weiterleiten (HTTP 302)
         header('Location: /user');
+    }
+
+    public function changeUser(){
+        $authenticator = new Authentication();
+
+        //start session if it doesn't exist
+        if (session_status() == PHP_SESSION_NONE){
+            session_start();
+        }
+
+        // get user by id
+        $user = $authenticator->getAuthenticatedUser();
+
+        $view = new View('user/changeCredentials');
+        $view->title = 'Profil';
+        $view->heading = 'Benutzerdaten ändern';
+        $view->username = $user->username;
+        $view->lastname = $user->name;
+        $view->firstname = $user->firstname;
+        $view->email = $user->email;
+        $view->display();
     }
 
     public function delete()
