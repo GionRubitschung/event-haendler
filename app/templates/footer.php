@@ -1,4 +1,4 @@
-</div>
+</main>
 
 <footer class="page-footer font-small indigo pt-4 fixed-bottom">
   <div class="container-fluid text-center text-md-left">

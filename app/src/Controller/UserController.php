@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Repository\UserRepository;
 use App\Authentication\Authentication;
+use App\Validation\Validator;
 use App\View\View;
 
 /**
@@ -27,25 +28,6 @@ class UserController
         $view = new View('user/register');
         $view->title = 'Benutzer erstellen';
         $view->heading = 'Benutzer erstellen';
-        $view->display();
-    }
-
-    public function profile()
-    {
-        $authenticator = new Authentication();
-
-        //start session if it doesn't exist
-        if (session_status() == PHP_SESSION_NONE){
-            session_start();
-        }
-
-        // check if user is authenticated
-        $authenticator->restrictAuthenticated();
-
-        $view = new View('user/profile');
-        $view->title = 'Profil';
-        $username = $_SESSION['firstname'];
-        $view->heading = "Profil von $username";
         $view->display();
     }
 
@@ -139,15 +121,19 @@ class UserController
     }
 
     public function saveChangeUser(){
-        $authenticator = new Authentication();
-        $authenticator->restrictAuthenticated();
-
         //start session if it doesn't exist
         if (session_status() == PHP_SESSION_NONE){
             session_start();
         }
 
+        $authenticator = new Authentication();
+        $authenticator->restrictAuthenticated();
 
+        // validate input
+        $validator = new Validator();
+        $validator->sanitizePostArray();
+        var_dump($_POST);
+        
 
     }
 
