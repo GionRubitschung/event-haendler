@@ -30,25 +30,6 @@ class UserController
         $view->display();
     }
 
-    public function profile()
-    {
-        $authenticator = new Authentication();
-
-        //start session if it doesn't exist
-        if (session_status() == PHP_SESSION_NONE){
-            session_start();
-        }
-
-        // check if user is authenticated
-        $authenticator->restrictAuthenticated();
-
-        $view = new View('user/profile');
-        $view->title = 'Profil';
-        $username = $_SESSION['firstname'];
-        $view->heading = "Profil von $username";
-        $view->display();
-    }
-
     public function login()
     {
         $view = new View('user/login');
@@ -98,6 +79,25 @@ class UserController
         header('Location: /user');
     }
 
+    public function profile()
+    {
+        $authenticator = new Authentication();
+
+        //start session if it doesn't exist
+        if (session_status() == PHP_SESSION_NONE){
+            session_start();
+        }
+
+        // check if user is authenticated
+        $authenticator->restrictAuthenticated();
+
+        $view = new View('user/profile');
+        $view->title = 'Profil';
+        $username = htmlspecialchars($_SESSION['firstname']);
+        $view->heading = "Profil von $username";
+        $view->display();
+    }
+
     public function changeUser(){
         $authenticator = new Authentication();
 
@@ -112,11 +112,24 @@ class UserController
         $view = new View('user/changeCredentials');
         $view->title = 'Profil';
         $view->heading = 'Benutzerdaten ändern';
-        $view->username = $user->username;
-        $view->lastname = $user->name;
-        $view->firstname = $user->firstname;
-        $view->email = $user->email;
+        $view->username = htmlspecialchars($user->username);
+        $view->lastname = htmlspecialchars($user->name);
+        $view->firstname = htmlspecialchars($user->firstname);
+        $view->email = htmlspecialchars($user->email);
         $view->display();
+    }
+
+    public function saveChangeUser(){
+        $authenticator = new Authentication();
+        $authenticator->restrictAuthenticated();
+
+        //start session if it doesn't exist
+        if (session_status() == PHP_SESSION_NONE){
+            session_start();
+        }
+
+        
+
     }
 
     public function delete()

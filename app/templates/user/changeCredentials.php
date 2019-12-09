@@ -1,20 +1,37 @@
 <section>    
     <form action='/user/saveChangeUser'>
         <div class="form-group">
-            <label class="control-label" for="username"><?php echo($username); ?></label>
-            <input required id="username" name="username" type="text" class="form-control">
+            <label class="control-label" for="username">Benutzername</label>
+            <input required id="username" name="username" type="text" class="form-control" value="<?php echo($username); ?>">
         </div>
         <div class="form-group">
-            <label class="control-label" for="firstname"><?php echo($firstname); ?></label>
-            <input required id="firstname" name="firstname" type="text" class="form-control">
+            <label class="control-label" for="firstname">Vorname</label>
+            <input required id="firstname" name="firstname" type="text" class="form-control" value="<?php echo($firstname); ?>">
         </div>
         <div class="form-group">
-            <label class="control-label" for="lastname"><?php echo($lastname); ?></label>
-            <input required id="lastname" name="lastname" type="text" class="form-control">
+            <label class="control-label" for="lastname">Nachname</label>
+            <input required id="lastname" name="lastname" type="text" class="form-control" value="<?php echo($lastname); ?>">
         </div>
         <div class="form-group">
-            <label class="control-label" for="email"><?php echo($email); ?></label>
-            <input required id="email" name="email" type="email" class="form-control">
+            <label class="control-label" for="email">E-Mail</label>
+            <input required id="email" name="email" type="email" class="form-control" value="<?php echo($email); ?>">
+        </div>
+        <?php
+            if(isset($_SESSION['wrongpwd']) && $_SESSION['wrongpwd'] == true){
+                echo "<p>Falsches Passwort!</p>";
+            }
+        ?>
+        <div class="form-group">
+            <label class="control-label" for="password_old">Altes Passwort</label>
+            <input required id="email" name="password_old" type="password" class="form-control">
+        </div>        
+        <div class="form-group">
+            <label class="control-label" for="password_new1">Neues Passwort</label>
+            <input required id="email" name="password_new1" type="password" class="form-control">
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="password_new2">Neues Passwort wiederholen</label>
+            <input required id="email" name="password_new2" type="password" class="form-control">
         </div>
         <button type='submit' name='send'>Daten verändern</button>
     </form>

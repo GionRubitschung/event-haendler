@@ -81,4 +81,45 @@ class UserRepository extends Repository
         // Den gefundenen Datensatz zurückgeben
         return $row;
     }
+
+        /**
+     * This function updates .
+     *
+     * @param $id id of currently logged in user
+     *
+     * @throws Exception if statement calls an error
+     *
+     * @return updated user
+     */
+    public function updateUser($id, $username, $password, $name, $firstname, $email)
+    {
+        // Query erstellen
+        $query = "UPDATE {$this->tableName} SET username=?, password=?, name=?, firstname=?, email=? WHERE id=?";
+
+        // hash new password
+        $password_hash = password_hash($password, PASSWORD_BCRYPT);
+
+        // Datenbankverbindung anfordern und, das Query "preparen" (vorbereiten)
+        // und die Parameter "binden"
+        $statement = ConnectionHandler::getConnection()->prepare($query);
+        $statement->bind_param('sssssi', $username, $password_hash, $name, $firstname, $email, $id);
+
+        // Execute statement
+        $statement->execute();
+
+        // Get result of query
+        $result = $statement->get_result();
+        if (!$result) {
+            throw new Exception($statement->error);
+        }
+
+        // Get updated entry
+        $row = $result->fetch_object();
+
+        // Close DB connection
+        $result->close();
+
+        // Return updated entity
+        return $row;
+    }
 }
