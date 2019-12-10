@@ -9,7 +9,7 @@ class Validator
      */
     public static function sanitizeData(){
         foreach($_POST as $key => $value){
-            $_POST[$key] = htmlspecialchars($value);
+            $_POST[$key] = addslashes(htmlspecialchars($value));
         }
     }
 }

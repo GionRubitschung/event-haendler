@@ -74,7 +74,10 @@ class Authentication
     public static function getAuthenticatedUser()
     {
         $userRepository = new UserRepository();
-        session_start();
+        //start session if it doesn't exist
+        if (session_status() == PHP_SESSION_NONE){
+            session_start();
+        }
 
         // check if user is authenticated
         self::restrictAuthenticated();   
