@@ -2,7 +2,7 @@
 	if (isset ( $_SESSION ['loggedin'] ) && $_SESSION ['loggedin'] == true) {
         echo ("
         <form action='/user/logout'>
-            <button type='submit' name='send'>Logout</button>
+            <button class='btn btn-primary' type='submit' name='send'>Logout</button>
         </form>
         ");
 	} else {
