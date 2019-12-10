@@ -16,23 +16,31 @@
             <label class="control-label" for="email">E-Mail</label>
             <input required id="email" name="email" type="email" class="form-control" value="<?php echo($email); ?>">
         </div>
+        <div class="form-group">
+            <label class="control-label" for="password_old">Altes Passwort</label>
+            <input required id="password_old" name="password_old" type="password" class="form-control">
+        </div>       
         <?php
-            if(isset($_SESSION['wrongpwd']) && $_SESSION['wrongpwd'] == true){
-                echo "<p>Falsches Passwort!</p>";
+            if(isset($wrongpwd) && $wrongpwd){
+                echo "<p class='alert alert-danger'>Falsches Passwort!</p>";
             }
         ?>
         <div class="form-group">
-            <label class="control-label" for="password_old">Altes Passwort</label>
-            <input required id="password_old" name="password_old" type="password" class="form-control" ttern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$">
-        </div>        
-        <div class="form-group">
-            <label class="control-label" for="password_new1">Neues Passwort</label>
+            <label class="control-label" for="password_new1" title='Passwort Voraussetzungen:
+            min. 8 Zeichen
+            min. 1 Gross- und Kleinbuchstaben
+            min. 1 Zahl
+            min. 1 Sonderzeichen'>Neues Passwort<sup>?</sup></label>
             <input required id="password_new1" name="password_new1" type="password" class="form-control" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$">
         </div>
         <div class="form-group">
-            <label class="control-label" for="password_new2">Neues Passwort wiederholen</label>
+            <label class="control-label" for="password_new2" title='Passwort Voraussetzungen:
+            min. 8 Zeichen
+            min. 1 Gross- und Kleinbuchstaben
+            min. 1 Zahl
+            min. 1 Sonderzeichen'>Neues Passwort wiederholen<sup>?</sup></label>
             <input required id="password_new2" name="password_new2" type="password" class="form-control" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$">
         </div>
-        <button id="send" type='submit' name='send'>Daten verändern</button>
+        <button id="send" type='submit' name='send' class='btn btn-primary'>Daten ändern</button>
     </form>
 </section>

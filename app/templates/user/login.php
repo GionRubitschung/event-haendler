@@ -17,7 +17,12 @@
                     <label class="control-label" for="password">Passwort</label>
                     <input required id="password" name="password" type="password" class="form-control">
                 </div>
-                <button id="send" type="submit" name="send" class="btn btn-primary" >Absenden</button>
+                <?php
+                    if(isset($error) && $error){
+                        echo ("<h5 class='alert alert-danger'>E-Mail oder Passwort falsch!</h5><br>");
+                    }
+                ?>
+                <button id="send" type="submit" name="send" class="btn btn-primary">Absenden</button>
             </form>
         </div>
         <div>

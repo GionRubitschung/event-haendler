@@ -44,14 +44,21 @@ class UserController
         $authenticator = new Authentication();
 
         if(isset($_POST['send'])){
+            $validator = new Validator();
+            $validator->sanitizeData();
+
             $email = $_POST['email'];
             $password = $_POST['password'];
             if($authenticator->login($email, $password)){
                 // Anfrage an die URI /user/profile weiterleiten (HTTP 302)
                 header('Location: /user/profile');
             } else {
-                // Anfrage an die URI /user/login weiterleiten (HTTP 302)
-                header('Location: /user/login');
+                // Create new login view, with error
+                $view = new View('user/login');
+                $view->title = 'Login';
+                $view->heading = 'Login';
+                $view->error = true;
+                $view->display();
             }
         }
     }
@@ -66,6 +73,9 @@ class UserController
     public function doCreate()
     {
         if (isset($_POST['send'])) {
+            $validator = new Validator();
+            $validator->sanitizeData();
+
             $firstName = $_POST['fname'];
             $lastName = $_POST['lname'];
             $email = $_POST['email'];
@@ -146,7 +156,18 @@ class UserController
                 header('Location: /user/profile');
             }
         } else {
-            header('Location: /user/changeUser');
+            // get user by id
+            $user = $authenticator->getAuthenticatedUser();
+            // create data-populated view of changeUser site
+            $view = new View('user/changeCredentials');
+            $view->title = 'Profil';
+            $view->heading = 'Benutzerdaten ändern';
+            $view->username = htmlspecialchars($user->username);
+            $view->lastname = htmlspecialchars($user->name);
+            $view->firstname = htmlspecialchars($user->firstname);
+            $view->email = htmlspecialchars($user->email);
+            $view->wrongpwd = true;
+            $view->display();
         }
     }
 
