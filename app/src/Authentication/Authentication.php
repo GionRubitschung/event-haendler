@@ -10,12 +10,12 @@ class Authentication
     public static function login($email, $password)
     {
         $userRepository = new UserRepository();
-        // Den Benutzer anhand der E-Mail oder des Benutzernamen auslesen
+        // Get user by Email
         $user = $userRepository->readByEmail($email);
 		
         if ($user != null)
         {			
-            // Prüfen ob der Password-Hash dem aus der Datenbank entspricht
+            // Check if hashed password == userinput
             if (password_verify($password, $user->password))
             {
                 //start session if it doesn't exist
@@ -33,8 +33,21 @@ class Authentication
                 return true;
             }
         }
-
         return false;
+    }
+
+    public static function checkPassword($id, $password){
+        $userRepository = new UserRepository();
+        // Get user by Email
+        $user = $userRepository->checkPassword($id);
+
+        // check if data exists
+        if(!empty($user)){
+            // verify password
+            return password_verify($password, $user->password);
+        } else {
+            return false;
+        }
     }
 
     public static function logout()

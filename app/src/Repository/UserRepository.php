@@ -55,15 +55,15 @@ class UserRepository extends Repository
      */
     public function readByEmail($email)
     {
-        // Query erstellen
+        // Create query
         $query = "SELECT id, username, firstname, name, email, password FROM {$this->tableName} WHERE email=?";
 
-        // Datenbankverbindung anfordern und, das Query "preparen" (vorbereiten)
-        // und die Parameter "binden"
+        // Prepary DB connection
+        // bind parameters to query
         $statement = ConnectionHandler::getConnection()->prepare($query);
         $statement->bind_param('s', $email);
 
-        // Das Statement absetzen
+        // Execute statement
         $statement->execute();
 
         // Resultat der Abfrage holen
@@ -86,21 +86,26 @@ class UserRepository extends Repository
      * This function updates .
      *
      * @param $id id of currently logged in user
-     *
+     * @param $username username to update
+     * @param $password password to hash
+     * @param $name name to update
+     * @param $firstname updated firstname of user
+     * @param $email updated email of user
+     * 
      * @throws Exception if statement calls an error
      *
      * @return updated user
      */
     public function updateUser($id, $username, $password, $name, $firstname, $email)
     {
-        // Query erstellen
+        // Create Query
         $query = "UPDATE {$this->tableName} SET username=?, password=?, name=?, firstname=?, email=? WHERE id=?";
 
         // hash new password
         $password_hash = password_hash($password, PASSWORD_BCRYPT);
 
-        // Datenbankverbindung anfordern und, das Query "preparen" (vorbereiten)
-        // und die Parameter "binden"
+        // Prepary DB connection
+        // bind parameters to query
         $statement = ConnectionHandler::getConnection()->prepare($query);
         $statement->bind_param('sssssi', $username, $password_hash, $name, $firstname, $email, $id);
 
@@ -108,18 +113,43 @@ class UserRepository extends Repository
         $statement->execute();
 
         // Get result of query
+        $result = $statement->affected_rows;
+
+        // return true is 1 row was affected
+        if($result == 1){
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Get password of currently logged-in user
+     */
+    public function checkPassword($id){
+        // Create query
+        $query = "SELECT password FROM {$this->tableName} WHERE id=?";
+
+        // Prepary DB connection
+        // bind parameters to query
+        $statement = ConnectionHandler::getConnection()->prepare($query);
+        $statement->bind_param('i', $id);
+
+        // Execute statement
+        $statement->execute();
+
+        // Resultat der Abfrage holen
         $result = $statement->get_result();
         if (!$result) {
             throw new Exception($statement->error);
         }
 
-        // Get updated entry
+        // Ersten Datensatz aus dem Reultat holen
         $row = $result->fetch_object();
 
         // Close DB connection
         $result->close();
 
-        // Return updated entity
+        // Den gefundenen Datensatz zurückgeben
         return $row;
     }
 }

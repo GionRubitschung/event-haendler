@@ -110,6 +110,7 @@ class UserController
         // get user by id
         $user = $authenticator->getAuthenticatedUser();
 
+        // create data-populated view of changeUser site
         $view = new View('user/changeCredentials');
         $view->title = 'Profil';
         $view->heading = 'Benutzerdaten ändern';
@@ -126,15 +127,27 @@ class UserController
             session_start();
         }
 
+        $userRepository = new UserRepository();
         $authenticator = new Authentication();
         $authenticator->restrictAuthenticated();
 
         // validate input
         $validator = new Validator();
-        $validator->sanitizePostArray();
-        var_dump($_POST);
-        
+        // sanitize $_POST-Array
+        $validator->sanitizeData();
 
+        if($authenticator->checkPassword($_SESSION['id'], $_POST['password_old'])){
+            if($userRepository->updateUser($_SESSION['id'], $_POST['username'], $_POST['password_new1'], $_POST['lastname'], $_POST['firstname'], $_POST['email'])){
+                // update user
+                $_SESSION['user'] = $_POST['username'];
+                $_SESSION['firstname'] = $_POST['firstname'];
+                $_SESSION['name'] = $_POST['lastname'];
+                $_SESSION['email'] = $_POST['email'];
+                header('Location: /user/profile');
+            }
+        } else {
+            header('Location: /user/changeUser');
+        }
     }
 
     public function delete()

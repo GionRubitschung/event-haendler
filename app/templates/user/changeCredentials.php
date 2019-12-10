@@ -23,16 +23,16 @@
         ?>
         <div class="form-group">
             <label class="control-label" for="password_old">Altes Passwort</label>
-            <input required id="email" name="password_old" type="password" class="form-control" ttern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$">
+            <input required id="password_old" name="password_old" type="password" class="form-control" ttern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$">
         </div>        
         <div class="form-group">
             <label class="control-label" for="password_new1">Neues Passwort</label>
-            <input required id="email" name="password_new1" type="password" class="form-control" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$">
+            <input required id="password_new1" name="password_new1" type="password" class="form-control" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$">
         </div>
         <div class="form-group">
             <label class="control-label" for="password_new2">Neues Passwort wiederholen</label>
-            <input required id="email" name="password_new2" type="password" class="form-control" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$">
+            <input required id="password_new2" name="password_new2" type="password" class="form-control" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$">
         </div>
-        <button type='submit' name='send'>Daten verändern</button>
+        <button id="send" type='submit' name='send'>Daten verändern</button>
     </form>
 </section>
