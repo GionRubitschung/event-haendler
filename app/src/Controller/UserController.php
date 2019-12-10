@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Repository\UserRepository;
 use App\Authentication\Authentication;
+use App\Validation\Validator;
 use App\View\View;
 
 /**
@@ -30,25 +31,6 @@ class UserController
         $view->display();
     }
 
-    public function profile()
-    {
-        $authenticator = new Authentication();
-
-        //start session if it doesn't exist
-        if (session_status() == PHP_SESSION_NONE){
-            session_start();
-        }
-
-        // check if user is authenticated
-        $authenticator->restrictAuthenticated();
-
-        $view = new View('user/profile');
-        $view->title = 'Profil';
-        $username = $_SESSION['firstname'];
-        $view->heading = "Profil von $username";
-        $view->display();
-    }
-
     public function login()
     {
         $view = new View('user/login');
@@ -64,10 +46,11 @@ class UserController
         if(isset($_POST['send'])){
             $email = $_POST['email'];
             $password = $_POST['password'];
-            $statusLogon = $authenticator->login($email, $password);
-            if($statusLogon){
+            if($authenticator->login($email, $password)){
+                // Anfrage an die URI /user/profile weiterleiten (HTTP 302)
                 header('Location: /user/profile');
             } else {
+                // Anfrage an die URI /user/login weiterleiten (HTTP 302)
                 header('Location: /user/login');
             }
         }
@@ -95,6 +78,76 @@ class UserController
 
         // Anfrage an die URI /user weiterleiten (HTTP 302)
         header('Location: /user');
+    }
+
+    public function profile()
+    {
+        $authenticator = new Authentication();
+
+        //start session if it doesn't exist
+        if (session_status() == PHP_SESSION_NONE){
+            session_start();
+        }
+
+        // check if user is authenticated
+        $authenticator->restrictAuthenticated();
+
+        $view = new View('user/profile');
+        $view->title = 'Profil';
+        $username = htmlspecialchars($_SESSION['firstname']);
+        $view->heading = "Profil von $username";
+        $view->display();
+    }
+
+    public function changeUser(){
+        $authenticator = new Authentication();
+
+        //start session if it doesn't exist
+        if (session_status() == PHP_SESSION_NONE){
+            session_start();
+        }
+
+        // get user by id
+        $user = $authenticator->getAuthenticatedUser();
+
+        // create data-populated view of changeUser site
+        $view = new View('user/changeCredentials');
+        $view->title = 'Profil';
+        $view->heading = 'Benutzerdaten ändern';
+        $view->username = htmlspecialchars($user->username);
+        $view->lastname = htmlspecialchars($user->name);
+        $view->firstname = htmlspecialchars($user->firstname);
+        $view->email = htmlspecialchars($user->email);
+        $view->display();
+    }
+
+    public function saveChangeUser(){
+        //start session if it doesn't exist
+        if (session_status() == PHP_SESSION_NONE){
+            session_start();
+        }
+
+        $userRepository = new UserRepository();
+        $authenticator = new Authentication();
+        $authenticator->restrictAuthenticated();
+
+        // validate input
+        $validator = new Validator();
+        // sanitize $_POST-Array
+        $validator->sanitizeData();
+
+        if($authenticator->checkPassword($_SESSION['id'], $_POST['password_old'])){
+            if($userRepository->updateUser($_SESSION['id'], $_POST['username'], $_POST['password_new1'], $_POST['lastname'], $_POST['firstname'], $_POST['email'])){
+                // update user
+                $_SESSION['user'] = $_POST['username'];
+                $_SESSION['firstname'] = $_POST['firstname'];
+                $_SESSION['name'] = $_POST['lastname'];
+                $_SESSION['email'] = $_POST['email'];
+                header('Location: /user/profile');
+            }
+        } else {
+            header('Location: /user/changeUser');
+        }
     }
 
     public function delete()

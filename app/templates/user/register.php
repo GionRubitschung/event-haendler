@@ -10,7 +10,7 @@
 		</div>
 		<div class="form-group">
 			<label class="control-label" for="password2">Passwort bestätigen</label>
-			<input required id="password2" name="password" type="password" class="form-control">
+			<input required id="password2" name="password2" type="password" class="form-control">
 		</div>
 		<div class="form-group">
 		  	<label for="fname">Vorname</label>
