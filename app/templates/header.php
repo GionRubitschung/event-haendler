@@ -33,11 +33,7 @@ $isLoggedIn ? $username = $_SESSION['user'] : $username = "";
 </head>
 
 <body>
-<<<<<<< HEAD
-  <!-- header section -->
-=======
   <!-- Navbar -->
->>>>>>> 110aaaf429dbd23d6186e5e4ea67c17b19b4790d
   <nav class="navbar fixed-top navbar-expand-lg navbar-dark indigo">
     <a class="navbar-brand" href="/">Event Händler</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -89,13 +85,7 @@ $isLoggedIn ? $username = $_SESSION['user'] : $username = "";
       </div>
     <?php endif ?>
   </nav>
-<<<<<<< HEAD
-  <!-- header section end -->
-  <main class="container">
-    <h1 class="text-center mt-3"><?= $heading; ?></h1>
-=======
   <!-- Navbar end -->
   <main class="container">
     <h1 class="text-center mt-3"><?= $heading; ?></h1>
     <div class="scrollbar scrollbar-primary">
->>>>>>> 110aaaf429dbd23d6186e5e4ea67c17b19b4790d
