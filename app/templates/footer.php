@@ -1,4 +1,3 @@
-</div>
 </main>
 
 <footer class="page-footer font-small indigo pt-4 fixed-bottom">

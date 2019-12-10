@@ -77,7 +77,7 @@ class UserController
         }
 
         // Anfrage an die URI /user weiterleiten (HTTP 302)
-        header('Location: /user');
+        header('Location: /user/profile');
     }
 
     public function profile()
@@ -95,7 +95,7 @@ class UserController
         $view = new View('user/profile');
         $view->title = 'Profil';
         $username = htmlspecialchars($_SESSION['firstname']);
-        $view->heading = "Profil von $username";
+        $view->heading = "Hallo $username";
         $view->display();
     }
 
