@@ -8,7 +8,7 @@ CREATE TABLE  eventPlan (
         DEFAULT CURRENT_TIMESTAMP,
     idOwner INT NOT NULL,
     PRIMARY KEY  (id),
-    FOREIGN KEY (id) REFERENCES user(id) on delete cascade on update cascade
+    FOREIGN KEY (idOwner) REFERENCES user(id) on delete cascade on update cascade
 );
 
 INSERT INTO eventPlan (title, description, dateOfEvent, idOwner) VALUES ('TestEvent', 'Lorem Ipsum', CURRENT_TIMESTAMP, 1);

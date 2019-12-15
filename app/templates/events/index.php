@@ -1,7 +1,7 @@
 <div class="column pt-3 pb-3 border-bottom">
 	<div class="column">
 		<div class="col text-center">
-			<a href="/user/events">Meine Events</a>
+			<a href="/events/user">Meine Events</a>
 		</div>
 		<div class="col text-center">
 			<input class="form-control" type="text" placeholder="Search" aria-label="Search">
@@ -18,8 +18,8 @@
 			<div class="card mt-2 mb-2">
 				<div class="card-body">
 					<h5 class="card-title"><?= $event->title ?></h5>
-					<p class="card-text"><?= $event->description ?></p>
-					<a href="users/<?= $event->idOwner; ?>" class="card-link"></a>
+					<p class="card-text">Beschreibung: <span><?= $event->description ?></span></p>
+					<p class="card-link text-rigth">Veranstalter: <a href="user/query?q=<?= $event->idOwner; ?>"><?= $event->username ?></a></p>
 				</div>
 			</div>
 		<?php endforeach; ?>

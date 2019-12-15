@@ -4,7 +4,7 @@ CREATE TABLE  user (
   username    VARCHAR(64) NOT NULL,
   password    VARCHAR(255)  NOT NULL,
   name        VARCHAR(64)  NOT NULL,
-  firstName   VARCHAR(64)  NOT NULL,
+  firstname   VARCHAR(64)  NOT NULL,
   email       VARCHAR(128) NOT NULL UNIQUE,
   idPermission  INT NOT NULL,
   PRIMARY KEY  (id)

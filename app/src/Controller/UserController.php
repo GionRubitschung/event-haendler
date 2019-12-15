@@ -2,8 +2,8 @@
 
 namespace App\Controller;
 
-use App\Repository\UserRepository;
 use App\Authentication\Authentication;
+use App\Repository\UserRepository;
 use App\Validation\Validator;
 use App\View\View;
 
@@ -26,8 +26,8 @@ class UserController
     public function register()
     {
         $view = new View('user/register');
-        $view->title = 'Benutzer erstellen';
-        $view->heading = 'Benutzer erstellen';
+        $view->title = 'Registrieren';
+        $view->heading = 'Registrieren';
         $view->display();
     }
 
@@ -43,10 +43,10 @@ class UserController
     {
         $authenticator = new Authentication();
 
-        if(isset($_POST['send'])){
+        if (isset($_POST['send'])) {
             $email = $_POST['email'];
             $password = $_POST['password'];
-            if($authenticator->login($email, $password)){
+            if ($authenticator->login($email, $password)) {
                 // Anfrage an die URI /user/profile weiterleiten (HTTP 302)
                 header('Location: /user/profile');
             } else {
@@ -56,7 +56,8 @@ class UserController
         }
     }
 
-    public function logout(){
+    public function logout()
+    {
         $authenticator = new Authentication();
         $authenticator->logout();
 
@@ -85,7 +86,7 @@ class UserController
         $authenticator = new Authentication();
 
         //start session if it doesn't exist
-        if (session_status() == PHP_SESSION_NONE){
+        if (session_status() == PHP_SESSION_NONE) {
             session_start();
         }
 
@@ -99,11 +100,12 @@ class UserController
         $view->display();
     }
 
-    public function changeUser(){
+    public function changeUser()
+    {
         $authenticator = new Authentication();
 
         //start session if it doesn't exist
-        if (session_status() == PHP_SESSION_NONE){
+        if (session_status() == PHP_SESSION_NONE) {
             session_start();
         }
 
@@ -121,9 +123,10 @@ class UserController
         $view->display();
     }
 
-    public function saveChangeUser(){
+    public function saveChangeUser()
+    {
         //start session if it doesn't exist
-        if (session_status() == PHP_SESSION_NONE){
+        if (session_status() == PHP_SESSION_NONE) {
             session_start();
         }
 
@@ -136,8 +139,8 @@ class UserController
         // sanitize $_POST-Array
         $validator->sanitizeData();
 
-        if($authenticator->checkPassword($_SESSION['id'], $_POST['password_old'])){
-            if($userRepository->updateUser($_SESSION['id'], $_POST['username'], $_POST['password_new1'], $_POST['lastname'], $_POST['firstname'], $_POST['email'])){
+        if ($authenticator->checkPassword($_SESSION['id'], $_POST['password_old'])) {
+            if ($userRepository->updateUser($_SESSION['id'], $_POST['username'], $_POST['password_new1'], $_POST['lastname'], $_POST['firstname'], $_POST['email'])) {
                 // update user
                 $_SESSION['user'] = $_POST['username'];
                 $_SESSION['firstname'] = $_POST['firstname'];
@@ -157,5 +160,22 @@ class UserController
 
         // Anfrage an die URI /user weiterleiten (HTTP 302)
         header('Location: /user');
+    }
+
+    public function query()
+    {
+        // User id über get request holen
+        $id = $_GET["q"];
+
+        $userRepository = new UserRepository();
+        // User nach dieser ID filtern
+        $user = $userRepository->readById($id);
+
+        // View dazu anzeigen
+        $view = new View('user/query');
+        $view->title = "{$user->username}";
+        $view->heading = "Benuterprofil von {$user->username}";
+        $view->user = $user;
+        $view->display();
     }
 }

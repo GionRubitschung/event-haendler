@@ -15,9 +15,9 @@
             </div>
             <div class="col-9 mt-3">
                 <h2>Nutzerdaten</h2>
-                <p class="font-weight-bold w-100 column d-flex text-nowrap">Nachname: <span class="font-weight-normal text-right w-100 justify-content-end"><?= $_SESSION['name']; ?></span></p>
-                <p class="font-weight-bold w-100 column d-flex text-nowrap">Vorname: <span class="font-weight-normal text-right w-100 justify-content-end"><?= $_SESSION['firstname']; ?></span></p>
-                <p class="font-weight-bold w-100 column d-flex text-nowrap">E-Mail: <span class="font-weight-normal text-right w-100 justify-content-end"><?= $_SESSION['email']; ?></span></p>
+                <p class="font-weight-bold w-100 column d-flex text-nowrap">Nachname: <span class="font-weight-normal text-right w-100 justify-content-end"><?=$_SESSION['name'];?></span></p>
+                <p class="font-weight-bold w-100 column d-flex text-nowrap">Vorname: <span class="font-weight-normal text-right w-100 justify-content-end"><?=$_SESSION['firstname'];?></span></p>
+                <p class="font-weight-bold w-100 column d-flex text-nowrap">E-Mail: <span class="font-weight-normal text-right w-100 justify-content-end"><?=$_SESSION['email'];?></span></p>
                 <button class="btn indigo text-white ml-0 w-100" type='button' name='send' data-toggle="modal" data-target="#changeCredentials">Ändern</button>
             </div>
         </div>
@@ -25,23 +25,16 @@
     <div class="col"></div>
 </div>
 
-<div class="modal fade" id="changeCredentials" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-xl" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <?php
 
-                use App\View\View;
+<?php
 
-                $view = new View('user/changeCredentials');
+use App\View\View;
 
-                $attributes = array("username"=>htmlspecialchars($_SESSION["user"]), "firstname"=>htmlspecialchars($_SESSION["firstname"]), "lastname"=>htmlspecialchars($_SESSION["name"]), "email"=>htmlspecialchars($_SESSION["email"]));
+$view = new View('user/changeCredentials');
 
-                $view->attributes = $attributes;
+$attributes = array("username" => htmlspecialchars($_SESSION["user"]), "firstname" => htmlspecialchars($_SESSION["firstname"]), "lastname" => htmlspecialchars($_SESSION["name"]), "email" => htmlspecialchars($_SESSION["email"]));
 
-                $view->displaySection();
-                ?>
-            </div>
-        </div>
-    </div>
-</div>
+$view->attributes = $attributes;
+
+$view->displaySection();
+?>

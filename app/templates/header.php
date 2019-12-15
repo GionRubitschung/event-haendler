@@ -12,12 +12,12 @@ $isLoggedIn = $authenticator->isAuthenticated();
 $isLoggedIn ? $username = $_SESSION['user'] : $username = "";
 ?>
 <!doctype html>
-<html lang="de"  class="h-100">
+<html lang="de">
 
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <link rel="stylesheet" href="./css/style.css">
+  <link rel="text/stylesheet" href="./css/style.css">
 
   <!-- Bootstrap CSS -->
   <!-- Font Awesome -->
@@ -32,7 +32,7 @@ $isLoggedIn ? $username = $_SESSION['user'] : $username = "";
 
 </head>
 
-<body class="h-100">
+<body>
   <!-- Navbar -->
   <nav class="navbar sticky-top navbar-expand-lg navbar-dark indigo">
     <a class="navbar-brand" href="/">Event Händler</a>
@@ -86,5 +86,5 @@ $isLoggedIn ? $username = $_SESSION['user'] : $username = "";
     <?php endif ?>
   </nav>
   <!-- Navbar end -->
-  <main class="container h-75">
+  <main class="container">
     <h1 class="text-center mt-3"><?= $heading; ?></h1>

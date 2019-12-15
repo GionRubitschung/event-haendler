@@ -82,7 +82,7 @@ class UserRepository extends Repository
         return $row;
     }
 
-        /**
+    /**
      * This function updates .
      *
      * @param $id id of currently logged in user
@@ -116,7 +116,7 @@ class UserRepository extends Repository
         $result = $statement->affected_rows;
 
         // return true is 1 row was affected
-        if($result == 1){
+        if ($result == 1) {
             return true;
         }
         return false;
@@ -125,7 +125,8 @@ class UserRepository extends Repository
     /**
      * Get password of currently logged-in user
      */
-    public function checkPassword($id){
+    public function checkPassword($id)
+    {
         // Create query
         $query = "SELECT password FROM {$this->tableName} WHERE id=?";
 
