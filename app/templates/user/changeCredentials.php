@@ -43,7 +43,6 @@
                 </form>
             </div>
         </div>
-<<<<<<< HEAD
         <div class="form-group">
             <label class="control-label" for="firstname">Vorname</label>
             <input required id="firstname" name="firstname" type="text" class="form-control" value="<?php echo($firstname); ?>">
@@ -84,7 +83,3 @@
         <button id="send" type='submit' name='send' class='btn btn-primary'>Daten ändern</button>
     </form>
 </section>
-=======
-    </div>
-</div>
->>>>>>> fc26742b0307e22c54d01e6f7b9c9105e15e2577
