@@ -9,8 +9,18 @@ class EventsRepository extends Repository
 {
     protected $tableName = "eventplan";
 
+    /**
+     * Diese Funktion gibt alle Datensätze eines Benutzers zurück
+     *
+     * @param $id Die id des Benutzers
+     *
+     * @throws Exception falls das Ausführen des Statements fehlschlägt
+     *
+     * @return Ein array mit den gefundenen Datensätzen
+     */
     public function readUserEvents($id)
     {
+        // Query damit der Benutzer alle seine Events erhält
         $query = "SELECT TB1.id, TB1.title, TB1.description, TB1.dateOfEvent, TB1.publishDate, 
                     TB2.id as idOwner, TB2.username, TB2.name, TB2.firstname, TB2.email, 
                     TB3.id as idAdress, TB3.namePlace, TB3.street, TB3.streetNbr, TB3.plz, TB3.place  FROM 
@@ -21,6 +31,7 @@ class EventsRepository extends Repository
                 INNER JOIN user AS TB2 ON TB1.idOwner = TB2.id
                 INNER JOIN adress AS TB3 on TB1.idAdress = TB3.id";
 
+        // Das query wird vorbereitet und die Parameter werden eingefügt
         $statement = ConnectionHandler::getConnection()->prepare($query);
         $statement->execute();
 
@@ -34,15 +45,34 @@ class EventsRepository extends Repository
         while ($row = $result->fetch_object()) {
             $rows[] = $row;
         }
-
+        
+        // Gibt die datensätze zurück
         return $rows;
     }
 
+
+    /**
+     * Diese Funktion erstellt ein neues Event
+     *
+     * @param $title Der Titel des Events
+     * 
+     * @param $description Die Beschreibung des Events
+     * 
+     * @param $date Das Datum an dem das Event stattfindet
+     * 
+     * @param $idOwner Die id des Benutzers der das Event erstellt hat
+     * 
+     * @param $idAdress Die id der Adresse an dem das Event stattfinden wird
+     *
+     * @throws Exception falls das Ausführen des Statements fehlschlägt
+     *
+     * @return $statement->insert_id Die id des erstellten Datensatzes wird zurückgegeben
+     */
     public function create($title, $description, $date, $idOwner, $idAdress)
     {
         $query = "INSERT INTO {$this->tableName} (title, description, dateOfEvent, idOwner, idAdress) VALUES (?, ?, ?, ?, ?)";
-        echo $query;
-        echo "</br>";
+        
+        // Das query wird vorbereitet und die Parameter werden eingefügt
         $statement = ConnectionHandler::getConnection()->prepare($query);
         $statement->bind_param('sssii', $title, $description, $date, $idOwner, $idAdress);
 
@@ -53,6 +83,26 @@ class EventsRepository extends Repository
         return $statement->insert_id;
     }
 
+    /**
+     * Diese Funktion überprüft ob eine Adresse bereits existiert und erstellt eine neue
+     * falls keine Exisitert
+     *
+     * @param $namePlace Der Name des Platzes
+     * 
+     * @param $street Die Strasse
+     * 
+     * @param $streetNbr Das Strassen Nummer
+     * 
+     * @param $place Die Ortschaft
+     * 
+     * @param $plz Die Postleihzahl
+     *
+     * @throws Exception falls das Ausführen des Statements fehlschlägt
+     *
+     * @return $row->id Die ID einer bestehenden Adresse wird zurückgegeben
+     * 
+     * @return $statement->insert_id Die id des erstellten Datensatzes wird zurückgegeben
+     */
     public function createAdress($namePlace, $street, $streetNbr, $place, $plz)
     {
         // Statement zum überprüfen ob die Adresse bereits existiert
@@ -74,9 +124,12 @@ class EventsRepository extends Repository
         $row = $result->fetch_object();
 
         if (isset($row)) {
+            // Wenn die Adresse bereits existiert wird dessen ID zurückgegeben
             return $row->id;
         } else {
             $query = "INSERT INTO adress(namePlace, street, streetNbr, place, plz) VALUES(?, ?, ?, ?, ?)";
+
+            // Das query wird vorbereitet und die Parameter werden eingefügt
             $statement = ConnectionHandler::getConnection()->prepare($query);
             $statement->bind_param('ssisi', $namePlace, $street, $streetNbr, $place, $plz);
 
@@ -84,24 +137,42 @@ class EventsRepository extends Repository
                 throw new Exception($statement->error);
             }
 
+            // Wenn die Adresse nicht existiert, wird die ID der neu erstellten Adresse zurückgegeben
             return $statement->insert_id;
         }
     }
 
+    /**
+     * Diese Funktion erstellt die Referenz des neuen events in der Zwischentabelle
+     *
+     * @param $idUser Die ID des Benutzers der das Event erstellt hat
+     * 
+     * @param $idEvent Die ID des Events
+     *
+     * @throws Exception falls das Ausführen des Statements fehlschlägt
+     */
     public function createJoin($idUser, $idEvent)
     {
         $query = "INSERT INTO userevent (idUser, idEvent) VALUES (?, ?)";
 
+        // Das query wird vorbereitet und die Parameter werden eingefügt
         $statement = ConnectionHandler::getConnection()->prepare($query);
         $statement->bind_param('ii', $idUser, $idEvent);
 
         if (!$statement->execute()) {
             throw new Exception($statement->error);
         }
-
-        return $statement->insert_id;
     }
 
+    /**
+     * Diese Funktion gibt alle Events mit dessen Adressen zurück
+     *
+     * @param $id Die id des Events
+     *
+     * @throws Exception falls das Ausführen des Statements fehlschlägt
+     *
+     * @return Ein array mit den gefundenen Datensätzen
+     */
     public function readByIdByAddressJoin($id)
     {
         // Query erstellen
@@ -133,13 +204,28 @@ class EventsRepository extends Repository
         return $row;
     }
 
+    /**
+     * Diese Funktion updatet ein neues Event
+     *
+     * @param $title Der Titel des Events
+     * 
+     * @param $description Die Beschreibung des Events
+     * 
+     * @param $date Das Datum an dem das Event stattfindet
+     * 
+     * @param $idOwner Die id des Benutzers der das Event erstellt hat
+     * 
+     * @param $idAdress Die id der Adresse an dem das Event stattfinden wird
+     *
+     * @throws Exception falls das Ausführen des Statements fehlschlägt
+     */
     public function update($title, $description, $dateOfEvent, $id, $idAdress)
     {
         $query = "UPDATE {$this->tableName} SET title=?, description=?, dateOfEvent=?, idAdress=? WHERE id=?";
 
+        // Das query wird vorbereitet und die Parameter werden eingefügt
         $statement = ConnectionHandler::getConnection()->prepare($query);
         $statement->bind_param('sssii', $title, $description, $dateOfEvent, $idAdress, $id);
-        var_dump($statement);
 
         if (!$statement->execute()) {
             throw new Exception($statement->error);
