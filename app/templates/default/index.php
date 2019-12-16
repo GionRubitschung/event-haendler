@@ -2,10 +2,10 @@
     <div class="row">
         <div class="col-5"></div>
         <div class="col text-center">
-            <a href="/about">About</a>
+            <a href="/information/about">About</a>
         </div>
         <div class="col text-center">
-            <a href="/contact">Kontakt</a>
+            <a href="/information/contact">Kontakt</a>
         </div>
         <div class="col-5"></div>
     </div>

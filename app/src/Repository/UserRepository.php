@@ -124,6 +124,7 @@ class UserRepository extends Repository
 
     /**
      * Get password of currently logged-in user
+     * @param id user id 
      */
     public function checkPassword($id)
     {
@@ -157,6 +158,7 @@ class UserRepository extends Repository
 
     /**
      * Get password of currently logged-in user
+     * @param email email from user
      */
     public function checkEmail($email)
     {

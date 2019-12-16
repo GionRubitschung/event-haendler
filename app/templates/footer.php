@@ -13,10 +13,10 @@
         <h5 class="text-uppercase text-white">Home</h5>
         <ul class="list-unstyled">
           <li>
-            <a class="text-white" href="/about">About</a>
+            <a class="text-white" href="/information/about">About</a>
           </li>
           <li>
-            <a class="text-white" href="/contact">Kontakt</a>
+            <a class="text-white" href="/information/contact">Kontakt</a>
           </li>
         </ul>
       </div>
@@ -24,7 +24,7 @@
         <h5 class="text-uppercase text-white">Weiteres</h5>
         <ul class="list-unstyled">
           <li>
-            <a class="text-white" href="/impressum">Impressum</a>
+            <a class="text-white" href="/information/impressum">Impressum</a>
           </li>
         </ul>
       </div>
