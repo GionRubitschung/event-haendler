@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Authentication\Authentication;
 use App\Repository\EventsRepository;
+use App\Validation\Validator;
 use App\View\View;
 
 use DateTime;
@@ -68,14 +69,17 @@ class EventsController
 
         if ($authentication->isAuthenticated()) {
             if (isset($_POST['send'])) {
+                $validator = new Validator();
+                $validator->sanitizeData();
+
                 $title = $_POST['title'];
                 $description = $_POST['description'];
 
                 $postDate = new DateTime($_POST['date']);
                 $postTime = new DateTime($_POST['time']);
 
-                $merge = new DateTime($postDate->format('Y-m-d') .' ' .$postTime->format('H:i:s'));
-                $date = $merge->format('Y-m-d H:i:s'); // Outputs '2017-03-14 13:37:42'
+                $merge = new DateTime($postDate->format('Y-m-d') . ' ' . $postTime->format('H:i:s'));
+                $date = $merge->format('Y-m-d H:i:s');
                 $idOwner = $_SESSION["id"];
                 $namePlace = isset($_POST['namePlace']) ? $_POST['namePlace'] : "null";
                 $street = $_POST['street'];
@@ -84,7 +88,7 @@ class EventsController
                 $plz = $_POST['plz'];
 
                 $eventsRepository = new EventsRepository();
-                
+
                 $adressId = $eventsRepository->createAdress($namePlace, $street, $streetNbr, $place, $plz);
                 $newEventId = $eventsRepository->create($title, $description, $date, $idOwner, $adressId);
                 $eventsRepository->createJoin($idOwner, $newEventId);
@@ -107,7 +111,7 @@ class EventsController
             $view = new View('events/update');
             $view->heading = "Event ändern";
             $view->title = "Update Event";
-            $view->event = $eventsRepository->readById($_GET["id"]);
+            $view->event = $eventsRepository->readByIdByAddressJoin($_GET["id"]);
             $view->display();
         } else header('Location: /user/login');
     }
@@ -121,14 +125,28 @@ class EventsController
 
         if ($authentication->isAuthenticated()) {
             if (isset($_POST['send'])) {
+                $validator = new Validator();
+                $validator->sanitizeData();
+
                 $title = $_POST['title'];
                 $description = $_POST['description'];
-                $postDate = date_create($_POST['date']);
-                $date = date_format($postDate, "Y-m-d H:i:s");
+
+                $postDate = new DateTime($_POST['date']);
+                $postTime = new DateTime($_POST['time']);
+
+                $merge = new DateTime($postDate->format('Y-m-d') . ' ' . $postTime->format('H:i:s'));
+                $date = $merge->format('Y-m-d H:i:s');
+                $namePlace = isset($_POST['namePlace']) ? $_POST['namePlace'] : "null";
+                $street = $_POST['street'];
+                $streetNbr = isset($_POST['streetNbr']) ? $_POST['streetNbr'] : "null";
+                $place = $_POST['place'];
+                $plz = $_POST['plz'];
                 $id = $_GET["id"];
 
                 $eventsRepository = new EventsRepository();
-                $eventsRepository->update($title, $description, $date, $id);
+
+                $adressId = $eventsRepository->createAdress($namePlace, $street, $streetNbr, $place, $plz);
+                $eventsRepository->update($title, $description, $date, $id, $adressId);
             }
 
             header('Location: /events/user');
@@ -147,7 +165,7 @@ class EventsController
 
             $eventsRepository = new EventsRepository();
             $eventsRepository->deleteById($id);
-            $eventsRepository->deleteReference($id);
+            // $eventsRepository->deleteReference($id);
 
             header('Location: /events/user');
         } else header('Location: /user/login');

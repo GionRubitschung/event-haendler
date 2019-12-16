@@ -102,24 +102,44 @@ class EventsRepository extends Repository
         return $statement->insert_id;
     }
 
-    public function update($title, $description, $dateOfEvent, $id)
+    public function readByIdByAddressJoin($id)
     {
-        $query = "UPDATE {$this->tableName} SET title=?, description=?, dateOfEvent=? WHERE id=?";
+        // Query erstellen
+        $query = "SELECT TB1.*, TB2.namePlace, TB2.street, TB2.streetNbr, TB2.place, TB2.plz FROM {$this->tableName} as TB1
+                    INNER JOIN adress as TB2 ON TB1.idAdress = TB2.id
+                     WHERE TB1.id=?";
 
-        $statement = ConnectionHandler::getConnection()->prepare($query);
-        $statement->bind_param('sssi', $title, $description, $dateOfEvent, $id);
-
-        if (!$statement->execute()) {
-            throw new Exception($statement->error);
-        }
-    }
-
-    public function deleteReference($id)
-    {
-        $query = "DELETE FROM userevent WHERE idEvent=?";
-
+        // Datenbankverbindung anfordern und, das Query "preparen" (vorbereiten)
+        // und die Parameter "binden"
         $statement = ConnectionHandler::getConnection()->prepare($query);
         $statement->bind_param('i', $id);
+
+        // Das Statement absetzen
+        $statement->execute();
+
+        // Resultat der Abfrage holen
+        $result = $statement->get_result();
+        if (!$result) {
+            throw new Exception($statement->error);
+        }
+
+        // Ersten Datensatz aus dem Reultat holen
+        $row = $result->fetch_object();
+
+        // Datenbankressourcen wieder freigeben
+        $result->close();
+
+        // Den gefundenen Datensatz zurückgeben
+        return $row;
+    }
+
+    public function update($title, $description, $dateOfEvent, $id, $idAdress)
+    {
+        $query = "UPDATE {$this->tableName} SET title=?, description=?, dateOfEvent=?, idAdress=? WHERE id=?";
+
+        $statement = ConnectionHandler::getConnection()->prepare($query);
+        $statement->bind_param('sssii', $title, $description, $dateOfEvent, $idAdress, $id);
+        var_dump($statement);
 
         if (!$statement->execute()) {
             throw new Exception($statement->error);
