@@ -203,4 +203,21 @@ class UserController
         $view->user = $user;
         $view->display();
     }
+
+    /**
+     * Check if mail already exists in Database
+     */
+    public function checkEmail(){
+        $userRepository = new UserRepository();
+        $data = $userRepository->checkEmail($_POST['email']);
+        
+        if(isset($data)){
+            // found email
+            echo 1;
+        }
+        else {
+            // found no email
+            echo 0;
+        }
+    }
 }

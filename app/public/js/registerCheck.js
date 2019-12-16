@@ -1,6 +1,7 @@
 $(document).ready(function(){
     /** Disable Form Send button from start */
     $('#send').attr('disabled', true);
+    $('.error').hide();
 
     /** check if Password and Mail == same */
     $('#password2, #email2').change(function(){
@@ -9,13 +10,6 @@ $(document).ready(function(){
 
         var email = $('#email1').val();
         var email2 = $('#email2').val();
-
-        /** check is elements have content */ 
-        if(true){
-            
-        } else {
-            
-        }
 
         /** Highlight missing/invalid input fields */
         // check if input is identical
@@ -34,4 +28,23 @@ $(document).ready(function(){
         };
     });
 
+    // Check if password exists in Database and throw according errors
+    $("#email1").focusout(function(event){
+        event.preventDefault();
+        // check if password is correct
+        var data = $('#email1').val();
+        $.ajax({
+            url: '/user/checkEmail',
+            type: 'POST',
+            data: { email: data },
+            success: function(response){
+                if(response == 1){
+                    $('.error').show();
+                    $('#send').attr('disabled', true);
+                } else {
+                    $('.error').hide();
+                }                
+            }
+        })
+    });
 });
