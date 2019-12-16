@@ -13,5 +13,5 @@ CREATE TABLE  user (
 ALTER TABLE user
 ADD FOREIGN KEY (idPermission) REFERENCES permissionLevel(id) ON DELETE NO ACTION ON UPDATE CASCADE;
 
-INSERT INTO user (username, password, name, firstName, email, idPermission) VALUES ('userName1', sha2('ramon', 256), 'Ramon', 'Firstname', 'eine@mail.com', 1);
-INSERT INTO user (username, password, name, firstName, email, idPermission) VALUES ('userName2', sha2('samuel', 256), 'Samuel', 'Firstname', 'eine@mai33.com', 1);
+INSERT INTO user (username, password, name, firstName, email, idPermission) VALUES ('Beispielbenutzer Ramon', sha2('ramon', 256), 'Ramon', 'Firstname', 'eine@mail.com', 1);
+INSERT INTO user (username, password, name, firstName, email, idPermission) VALUES ('Beispielbenutzer Samuel', sha2('samuel', 256), 'Samuel', 'Firstname', 'eine@mai33.com', 1);

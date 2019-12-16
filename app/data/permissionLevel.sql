@@ -1,9 +1,9 @@
-DROP TABLE IF EXISTS permissionLevel;
-CREATE TABLE  permissionLevel (
+DROP TABLE IF EXISTS permissionlevel;
+CREATE TABLE  permissionlevel (
   id          INT NOT NULL AUTO_INCREMENT,
   title    VARCHAR(64) NOT NULL,
   PRIMARY KEY  (id)
 );
 
-INSERT INTO permissionLevel (title) VALUES ('admin');
-INSERT INTO permissionLevel (title) VALUES ('benutzer');
+INSERT INTO permissionlevel (title) VALUES ('admin');
+INSERT INTO permissionlevel (title) VALUES ('benutzer');

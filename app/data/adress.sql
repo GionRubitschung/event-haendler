@@ -9,5 +9,5 @@ CREATE TABLE adress(
     place VARCHAR(64) NOT NULL
 );
 
-INSERT INTO adress (namePlace, street, streetNbr, plz, place) VALUES ("Halle 622", "Therese-Giehse-Strasse", 10, 8050, "Zürich");
-INSERT INTO adress (street, streetNbr, plz, place) VALUES ("Bahnhöheweg", 70, 3018, "Bern");
+INSERT INTO adress (namePlace, street, streetNbr, plz, place) VALUES ("Schweizerische Nationalbank", "Börsenstrasse", 15, 8001, "Zürich");
+INSERT INTO adress (namePlace, street, streetNbr, plz, place) VALUES ("Nationalparkzentrum", "Urtatsch", 2, 7530, "Zernez");
