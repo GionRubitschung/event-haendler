@@ -30,9 +30,6 @@
       </div>
     </div>
   </div>
-  <!-- <div class="footer-copyright text-center py-3">© 2019 Copyright:
-    <a href="/">event.haendler.ch</a>
-  </div> -->
 </footer>
 
 <!-- JQuery -->
@@ -45,6 +42,8 @@
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.11/js/mdb.min.js"></script>
 <!-- Scrollbar Script -->
 <script type="text/javascript" src="/js/detectScrollbar.js"></script>
+<!-- MDB Script -->
+<script src="/js/mdbJs.js"></script>
 </body>
 
 </html>

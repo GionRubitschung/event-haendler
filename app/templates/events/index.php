@@ -18,8 +18,35 @@
 			<div class="card mt-2 mb-2">
 				<div class="card-body">
 					<h5 class="card-title"><?= $event->title ?></h5>
-					<p class="card-text">Beschreibung: <span><?= $event->description ?></span></p>
-					<p class="card-link text-rigth">Veranstalter: <a href="user/query?q=<?= $event->idOwner; ?>"><?= $event->username ?></a></p>
+					<p class="card-text"><?= $event->description ?></p>
+					<hr>
+					<div class="row">
+					<div class="col-1">
+                            <p class="font-weight-bold">Ort</p>
+                        </div>
+                        <div class="col">
+                                <?php
+                                        $display;
+                                        empty($event->namePlace) ? $display = "" : $display =  "<p class='card-text'><span>{$event->namePlace}</span></p>";
+                                        echo $display;
+                                        ?>
+                            <p class="card-text">
+                                <span><?= $event->street ?></span>
+                                <?php
+                                        $display;
+                                        empty($event->streetNbr) ? $display = "" : $display =  "<span>{$event->streetNbr}</span>";
+                                        echo $display;
+                                        ?>
+                            </p>
+                            <p class="card-text">
+                                <span><?= $event->plz ?></span>
+                                <span><?= $event->place ?></span>
+                            </p>
+                        </div>
+						<div class="col">
+							<p class="card-link text-rigth font-weight-bold">Veranstalter: <a href="user/query?q=<?= $event->idOwner; ?>"><?= $event->username ?></a></p>
+						</div>
+					</div>
 				</div>
 			</div>
 		<?php endforeach; ?>

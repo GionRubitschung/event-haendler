@@ -24,10 +24,37 @@
                 <div class="card-body">
                     <h5 class="card-title"><?= $event->title ?></h5>
                     <p class="card-text"><?= $event->description ?></p>
+                    <hr>
                     <div class="row">
-                        <a class="col-3 btn indigo text-white text-center" href="/events/update?id=<?= $event->id; ?>">Bearbeiten</a>
-                        <div class="col-5"></div>
-                        <a class="col-3 btn danger-color text-white text-center" href="/events/delete?id=<?= $event->id; ?>">Löschen</a>
+                        <div class="col-1">
+                            <p class="font-weight-bold">Ort</p>
+                        </div>
+                        <div class="col">
+                                <?php
+                                        $display;
+                                        empty($event->namePlace) ? $display = "" : $display =  "<p class='card-text'><span>{$event->namePlace}</span></p>";
+                                        echo $display;
+                                        ?>
+                            <p class="card-text">
+                                <span><?= $event->street ?></span>
+                                <?php
+                                        $display;
+                                        empty($event->streetNbr) ? $display = "" : $display =  "<span>{$event->streetNbr}</span>";
+                                        echo $display;
+                                        ?>
+                            </p>
+                            <p class="card-text">
+                                <span><?= $event->plz ?></span>
+                                <span><?= $event->place ?></span>
+                            </p>
+                        </div>
+                        <div class="col">
+                            <div class="column">
+                                <a class="col btn indigo text-white text-center" href="/events/update?id=<?= $event->id; ?>">Bearbeiten</a>
+                                <div class="col-5"></div>
+                                <a class="col btn alert-danger text-black text-black" href="/events/delete?id=<?= $event->id; ?>">Löschen</a>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

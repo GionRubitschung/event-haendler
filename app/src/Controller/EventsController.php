@@ -6,6 +6,8 @@ use App\Authentication\Authentication;
 use App\Repository\EventsRepository;
 use App\View\View;
 
+use DateTime;
+
 class EventsController
 {
     public function index()
@@ -19,7 +21,7 @@ class EventsController
         $view = new View('events/index');
         $view->heading = "Events";
         $view->title = "Events";
-        $view->events = $eventsRepository->readAllByJoin("user", "idOwner");
+        $view->events = $eventsRepository->readAllByJoin("user", "idOwner", "adress", "idAdress");
         $view->display();
     }
 
@@ -68,12 +70,23 @@ class EventsController
             if (isset($_POST['send'])) {
                 $title = $_POST['title'];
                 $description = $_POST['description'];
-                $postDate = date_create($_POST['date']);
-                $date = date_format($postDate, "Y-m-d H:i:s");
+
+                $postDate = new DateTime($_POST['date']);
+                $postTime = new DateTime($_POST['time']);
+
+                $merge = new DateTime($postDate->format('Y-m-d') .' ' .$postTime->format('H:i:s'));
+                $date = $merge->format('Y-m-d H:i:s'); // Outputs '2017-03-14 13:37:42'
                 $idOwner = $_SESSION["id"];
+                $namePlace = isset($_POST['namePlace']) ? $_POST['namePlace'] : "null";
+                $street = $_POST['street'];
+                $streetNbr = isset($_POST['streetNbr']) ? $_POST['streetNbr'] : "null";
+                $place = $_POST['place'];
+                $plz = $_POST['plz'];
 
                 $eventsRepository = new EventsRepository();
-                $newEventId = $eventsRepository->create($title, $description, $date, $idOwner);
+                
+                $adressId = $eventsRepository->createAdress($namePlace, $street, $streetNbr, $place, $plz);
+                $newEventId = $eventsRepository->create($title, $description, $date, $idOwner, $adressId);
                 $eventsRepository->createJoin($idOwner, $newEventId);
             }
 
