@@ -6,7 +6,7 @@
 			<input required id="username" name="username" type="text" class="form-control">
 		</div>
 		<div class="form-group">
-			<label class="control-label" for="password" title='Passwort Voraussetzungen:
+			<label class="control-label" for="password1" title='Passwort Voraussetzungen:
             min. 8 Zeichen
             min. 1 Gross- und Kleinbuchstaben
             min. 1 Zahl
@@ -30,7 +30,7 @@
 			<input required id="lname" name="lname" type="text" class="form-control">
 		</div>
 		<div class="form-group">
-			<label for="email">Mail</label>
+			<label for="email1">Mail</label>
 			<input required id="email1" name="email" type="email" class="form-control">
 		</div>
 		<div class='error'>

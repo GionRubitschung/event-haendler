@@ -17,7 +17,7 @@ $isLoggedIn ? $username = $_SESSION['user'] : $username = "";
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <link rel="text/stylesheet" href="./css/style.css">
+  <link rel="stylesheet" href="/css/style.css">
 
   <!-- Bootstrap CSS -->
   <!-- Font Awesome -->
@@ -42,16 +42,16 @@ $isLoggedIn ? $username = $_SESSION['user'] : $username = "";
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle waves-effect waves-light pr-5 pl-5" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Home</a>
-          <div class="dropdown-menu dropdown-info" aria-labelledby="navbarDropdownMenuLink">
+          <a class="nav-link dropdown-toggle waves-effect waves-light pr-5 pl-5" id="navbarDropdownMenuLinkHome" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" role="navigation">Home</a>
+          <div class="dropdown-menu dropdown-info" aria-labelledby="navbarDropdownMenuLinkHome">
             <a class="dropdown-item waves-effect waves-light" href="/">Startseite</a>
             <a class="dropdown-item waves-effect waves-light" href="/information/about">About</a>
             <a class="dropdown-item waves-effect waves-light" href="/information/contact">Kontakt</a>
           </div>
         </li>
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle waves-effect waves-light pr-5 pl-5" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Events</a>
-          <div class="dropdown-menu dropdown-info" aria-labelledby="navbarDropdownMenuLink">
+          <a class="nav-link dropdown-toggle waves-effect waves-light pr-5 pl-5" id="navbarDropdownMenuLinkEvents" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" role="navigation">Events</a>
+          <div class="dropdown-menu dropdown-info" aria-labelledby="navbarDropdownMenuLinkEvents">
             <a class="dropdown-item waves-effect waves-light" href="/events">Alle Events</a>
             <a class="dropdown-item waves-effect waves-light" href="/events/user">Meine Events</a>
           </div>
@@ -62,8 +62,8 @@ $isLoggedIn ? $username = $_SESSION['user'] : $username = "";
       <div>
         <ul class="navbar-nav mr-5">
           <li class="nav-item dropdown text-right">
-            <a class="nav-link dropdown-toggle waves-effect waves-light pr-5 pl-5" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><?= $username ?></a>
-            <div class="dropdown-menu dropdown-info text-left" aria-labelledby="navbarDropdownMenuLink">
+            <a class="nav-link dropdown-toggle waves-effect waves-light pr-5 pl-5" id="navbarDropdownMenuLinkAuth" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" role="navigation"><?= $username ?></a>
+            <div class="dropdown-menu dropdown-info text-left" aria-labelledby="navbarDropdownMenuLinkAuth">
               <a class="dropdown-item waves-effect waves-light" href="/user/profile">Profil</a>
               <a class="dropdown-item waves-effect waves-light" href="/user/logout">Ausloggen</a>
             </div>
@@ -74,8 +74,8 @@ $isLoggedIn ? $username = $_SESSION['user'] : $username = "";
       <div>
         <ul class="navbar-nav">
           <li class="nav-item dropdown text-right">
-            <a class="nav-link dropdown-toggle waves-effect waves-light pr-5 pl-5" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Login</a>
-            <div class="dropdown-menu dropdown-info" aria-labelledby="navbarDropdownMenuLink">
+            <a class="nav-link dropdown-toggle waves-effect waves-light pr-5 pl-5" id="navbarDropdownMenuLinkNoAuth" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" role="navigation">Login</a>
+            <div class="dropdown-menu dropdown-info" aria-labelledby="navbarDropdownMenuLinkNoAuth">
               <a class="dropdown-item waves-effect waves-light" href="/user/login">Login</a>
               <a class="dropdown-item waves-effect waves-light" href="/user/register">Registrieren</a>
             </div>

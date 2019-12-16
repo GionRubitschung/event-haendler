@@ -23,11 +23,11 @@
                 </p>
             </div>
             <div class="col">
-                <img src="/images/event.svg" class="img-fluid mx-auto">
+                <img src="/images/event.svg" class="img-fluid mx-auto" alt="Event Bild">
             </div>
         </div>
         <div class="row mt-3">
-            <div class="col"><img src="/images/user.svg" class="img-fluid mx-auto"></div>
+            <div class="col"><img src="/images/user.svg" class="img-fluid mx-auto" alt="Benutzer Bild"></div>
             <div class="col">
                 <h3 class="text-center">Registrieren</h3>
                 <p class="text-left align-middle pt-5">
