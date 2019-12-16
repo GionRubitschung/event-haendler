@@ -155,11 +155,13 @@ class Repository
         return $rows;
     }
 
-    public function readAllByJoin($joinTableName, $table_fk, $max = 100)
+    public function readAllByJoin($joinTableName1, $table_fk1, $joinTableName2, $table_fk2, $max = 100)
     {
         $query = "SELECT * FROM {$this->tableName} AS TB1
-                    INNER JOIN $joinTableName AS TB2
-                    ON TB1.$table_fk = TB2.id
+                    INNER JOIN $joinTableName1 AS TB2
+                        ON TB1.$table_fk1 = TB2.id
+                    INNER JOIN $joinTableName2 AS TB3
+                        ON TB1.$table_fk2 = TB3.id
                     LIMIT 0, $max";
 
         $statement = ConnectionHandler::getConnection()->prepare($query);

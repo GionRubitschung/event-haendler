@@ -25,13 +25,13 @@
         </div>
         <div class="form-group">
             <label class="control-label" for="namePlace">Name des Ortes (optional)</label>
-            <input type="text" id="namePlcae" name="namePlcae" class="form-control">
+            <input type="text" id="namePlace" name="namePlace" class="form-control">
         </div>
         <div class="form-group">
             <div class="form-row">
                 <div class="col-8">
                     <label class="control-label" for="date">Strasse</label>
-                    <input required id="street" name="date" type="text" class="form-control">
+                    <input required id="street" name="street" type="text" class="form-control">
                 </div>
                 <div class="col-4">
                     <label class="control-label" for="date">Strassen Nr.</label>
@@ -42,12 +42,12 @@
         <div class="form-group">
             <div class="form-row">
                 <div class="col-8">
-                    <label class="control-label" for="place">Ort</label>
-                    <input required id="place" name="place" type="text" class="form-control">
-                </div>
-                <div class="col-4">
                     <label class="control-label" for="plz">Postleihzahl</label>
                     <input id="plz" name="plz" type="number" class="form-control">
+                </div>
+                <div class="col-4">
+                    <label class="control-label" for="place">Ort</label>
+                    <input required id="place" name="place" type="text" class="form-control">
                 </div>
             </div>
         </div>
