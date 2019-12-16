@@ -37,4 +37,4 @@
 </div>
 
 <!-- Import Scripts here-->
-<script src="../js/registerCheck.js"></script>
+<script src="/js/registerCheck.js"></script>

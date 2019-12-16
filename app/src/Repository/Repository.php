@@ -155,6 +155,30 @@ class Repository
         return $rows;
     }
 
+    public function readAllByJoin($joinTableName, $table_fk, $max = 100)
+    {
+        $query = "SELECT * FROM {$this->tableName} AS TB1
+                    INNER JOIN $joinTableName AS TB2
+                    ON TB1.$table_fk = TB2.id
+                    LIMIT 0, $max";
+
+        $statement = ConnectionHandler::getConnection()->prepare($query);
+        $statement->execute();
+
+        $result = $statement->get_result();
+        if (!$result) {
+            throw new Exception($statement->error);
+        }
+
+        // Datensätze aus dem Resultat holen und in das Array $rows speichern
+        $rows = array();
+        while ($row = $result->fetch_object()) {
+            $rows[] = $row;
+        }
+
+        return $rows;
+    }
+
     /**
      * Diese Funktion löscht den Datensatz mit der gegebenen id.
      *

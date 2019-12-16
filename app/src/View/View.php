@@ -88,4 +88,10 @@ class View
         require $this->viewfile;
         require './../templates/footer.php';
     }
+
+    public function displaySection()
+    {
+        extract($this->properties);
+        require $this->viewfile;
+    }
 }
