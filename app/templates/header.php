@@ -64,7 +64,7 @@ $isLoggedIn ? $username = $_SESSION['user'] : $username = "";
           <li class="nav-item dropdown text-right">
             <a class="nav-link dropdown-toggle waves-effect waves-light pr-5 pl-5" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><?= $username ?></a>
             <div class="dropdown-menu dropdown-info text-left" aria-labelledby="navbarDropdownMenuLink">
-              <a class="dropdown-item waves-effect waves-light" href="/user/profile">Benutzer Menu</a>
+              <a class="dropdown-item waves-effect waves-light" href="/user/profile">Profil</a>
               <a class="dropdown-item waves-effect waves-light" href="/user/changepassword">Passwort ändern</a>
               <a class="dropdown-item waves-effect waves-light" href="/user/logout">Ausloggen</a>
             </div>

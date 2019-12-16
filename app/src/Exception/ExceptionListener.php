@@ -23,7 +23,7 @@ class ExceptionListener
         $view = new View('error');
         $view->title = 'Fehler';
         $view->heading = 'Ein Fehler ist aufgetretten';
-        $view->userMessage = '';
+        $view->userMessage = 'Die gewünschte Seite wurde nicht gefunden.';
         $view->exception = $exception;
 
         if ($exception instanceof DatabaseConnectionException) {

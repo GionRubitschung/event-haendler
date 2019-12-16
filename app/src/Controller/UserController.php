@@ -43,15 +43,22 @@ class UserController
     {
         $authenticator = new Authentication();
 
-        if (isset($_POST['send'])) {
+        if(isset($_POST['send'])){
+            $validator = new Validator();
+            $validator->sanitizeData();
+
             $email = $_POST['email'];
             $password = $_POST['password'];
             if ($authenticator->login($email, $password)) {
                 // Anfrage an die URI /user/profile weiterleiten (HTTP 302)
                 header('Location: /user/profile');
             } else {
-                // Anfrage an die URI /user/login weiterleiten (HTTP 302)
-                header('Location: /user/login');
+                // Create new login view, with error
+                $view = new View('user/login');
+                $view->title = 'Login';
+                $view->heading = 'Login';
+                $view->error = true;
+                $view->display();
             }
         }
     }
@@ -67,6 +74,9 @@ class UserController
     public function doCreate()
     {
         if (isset($_POST['send'])) {
+            $validator = new Validator();
+            $validator->sanitizeData();
+
             $firstName = $_POST['fname'];
             $lastName = $_POST['lname'];
             $email = $_POST['email'];
@@ -139,17 +149,32 @@ class UserController
         // sanitize $_POST-Array
         $validator->sanitizeData();
 
-        if ($authenticator->checkPassword($_SESSION['id'], $_POST['password_old'])) {
-            if ($userRepository->updateUser($_SESSION['id'], $_POST['username'], $_POST['password_new1'], $_POST['lastname'], $_POST['firstname'], $_POST['email'])) {
-                // update user
-                $_SESSION['user'] = $_POST['username'];
-                $_SESSION['firstname'] = $_POST['firstname'];
-                $_SESSION['name'] = $_POST['lastname'];
-                $_SESSION['email'] = $_POST['email'];
-                header('Location: /user/profile');
+        if(isset($_POST) && !empty($_POST)){
+            if($authenticator->checkPassword($_SESSION['id'], $_POST['password_old'])){
+                if($userRepository->updateUser($_SESSION['id'], $_POST['username'], $_POST['password_new1'], $_POST['lastname'], $_POST['firstname'], $_POST['email'])){
+                    // update user
+                    $_SESSION['user'] = $_POST['username'];
+                    $_SESSION['firstname'] = $_POST['firstname'];
+                    $_SESSION['name'] = $_POST['lastname'];
+                    $_SESSION['email'] = $_POST['email'];
+                    header('Location: /user/profile');
+                }
+            } else {
+                // get user by id
+                $user = $authenticator->getAuthenticatedUser();
+                // create data-populated view of changeUser site
+                $view = new View('user/changeCredentials');
+                $view->title = 'Profil';
+                $view->heading = 'Benutzerdaten ändern';
+                $view->username = htmlspecialchars($user->username);
+                $view->lastname = htmlspecialchars($user->name);
+                $view->firstname = htmlspecialchars($user->firstname);
+                $view->email = htmlspecialchars($user->email);
+                $view->wrongpwd = true;
+                $view->display();
             }
         } else {
-            header('Location: /user/changeUser');
+            
         }
     }
 
@@ -177,5 +202,22 @@ class UserController
         $view->heading = "Benuterprofil von {$user->username}";
         $view->user = $user;
         $view->display();
+    }
+
+    /**
+     * Check if mail already exists in Database
+     */
+    public function checkEmail(){
+        $userRepository = new UserRepository();
+        $data = $userRepository->checkEmail($_POST['email']);
+        
+        if(isset($data)){
+            // found email
+            echo 1;
+        }
+        else {
+            // found no email
+            echo 0;
+        }
     }
 }

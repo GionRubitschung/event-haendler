@@ -153,4 +153,37 @@ class UserRepository extends Repository
         // Den gefundenen Datensatz zurückgeben
         return $row;
     }
+
+
+    /**
+     * Get password of currently logged-in user
+     */
+    public function checkEmail($email)
+    {
+        // Create query
+        $query = "SELECT email FROM {$this->tableName} WHERE email=?";
+
+        // Prepary DB connection
+        // bind parameters to query
+        $statement = ConnectionHandler::getConnection()->prepare($query);
+        $statement->bind_param('s', $email);
+
+        // Execute statement
+        $statement->execute();
+
+        // Resultat der Abfrage holen
+        $result = $statement->get_result();
+        if (!$result) {
+            throw new Exception($statement->error);
+        }
+
+        // Ersten Datensatz aus dem Reultat holen
+        $row = $result->fetch_object();
+
+        // Close DB connection
+        $result->close();
+
+        // Den gefundenen Datensatz zurückgeben
+        return $row;
+    }
 }
