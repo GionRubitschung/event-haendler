@@ -6,7 +6,7 @@
         </div>
         <div class="form-group">
             <label class="control-label" for="description">Beschreibung</label>
-            <textarea required id="description" name="description" type="text" class="form-control"></textarea>
+            <textarea required id="description" name="description" type="text" class="form-control" rows="5"></textarea>
         </div>
         <div class="form-group">
             <div class="form-row">
@@ -41,11 +41,11 @@
         </div>
         <div class="form-group">
             <div class="form-row">
-                <div class="col-8">
+                <div class="col-4">
                     <label class="control-label" for="plz">Postleihzahl</label>
                     <input id="plz" name="plz" type="number" class="form-control">
                 </div>
-                <div class="col-4">
+                <div class="col-8">
                     <label class="control-label" for="place">Ort</label>
                     <input required id="place" name="place" type="text" class="form-control">
                 </div>

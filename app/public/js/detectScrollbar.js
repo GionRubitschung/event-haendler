@@ -32,7 +32,7 @@
 })(jQuery);
 
 // This Prevents that the footer overfloats the content and if the content doesn't have a scrollbar, the footer gets set to the bottom.
-if ($('#body').hasScrollBar()) {
+if ($('main').hasScrollBar()) {
     jQuery('.footer').removeClass('fixed-bottom');
 } else {
     jQuery('.footer').addClass('fixed-bottom');

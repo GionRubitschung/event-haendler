@@ -43,8 +43,22 @@
 								<span><?= htmlspecialchars($event->place) ?></span>
 							</p>
 						</div>
+						<div class="col-1">
+							<p class="font-weight-bold">Datum</p>
+						</div>
+						<div class="col">
+							<p class="card-text">
+								<u>Datum:</u> <?= htmlspecialchars(date("d.M.Y", strtotime($event->dateOfEvent))) ?>
+							</p>
+							<p class="card-text">
+								<u>Uhrzeit:</u> <?= htmlspecialchars(date("H:i", strtotime($event->dateOfEvent))) ?>
+							</p>
+						</div>
 						<div class="col">
 							<p class="card-link text-rigth font-weight-bold">Veranstalter: <a href="user/query?q=<?= htmlspecialchars($event->idOwner); ?>"><?= htmlspecialchars($event->username) ?></a></p>
+						</div>
+						<div class="col">
+							<a class="col btn indigo text-white text-center mt-0" href="">Anmelden</a>
 						</div>
 					</div>
 				</div>

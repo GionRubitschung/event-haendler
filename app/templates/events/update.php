@@ -6,7 +6,7 @@
         </div>
         <div class="form-group">
             <label class="control-label" for="description">Beschreibung</label>
-            <textarea required id="description" name="description" type="text" class="form-control" rows="10"><?php echo $event->description; ?></textarea>
+            <textarea required id="description" name="description" type="text" class="form-control" rows="5"><?php echo $event->description; ?></textarea>
         </div>
         <div class="form-group">
             <div class="form-row">

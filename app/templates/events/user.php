@@ -48,10 +48,21 @@
                                 <span><?= htmlspecialchars($event->place) ?></span>
                             </p>
                         </div>
+                        <div class="col-1">
+                            <p class="font-weight-bold">Datum</p>
+                        </div>
+                        <div class="col">
+                            <p class="card-text">
+                                <u>Datum:</u> <?= htmlspecialchars(date("d.M.Y", strtotime($event->dateOfEvent))) ?>
+                            </p>
+                            <p class="card-text">
+                                <u>Uhrzeit:</u> <?= htmlspecialchars(date("H:i", strtotime($event->dateOfEvent))) ?>
+                            </p>
+                        </div>
                         <div class="col">
                             <div class="column">
-                                <a class="col btn indigo text-white text-center" href="/events/update?id=<?= $event->id; ?>">Bearbeiten</a>
-                                <div class="col-5"></div>
+                                <a class="col btn indigo text-white text-center mt-0" href="">Teilnehmer</a>
+                                <a class="col btn indigo text-white text-center mt-0" href="/events/update?id=<?= $event->id; ?>">Bearbeiten</a>
                                 <a class="col btn alert-danger text-black text-black" href="/events/delete?id=<?= $event->id; ?>">Löschen</a>
                             </div>
                         </div>
