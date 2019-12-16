@@ -51,6 +51,9 @@
                 </div>
             </div>
         </div>
-        <button id="send" type="submit" name="send" class="btn btn-primary">Hinzufügen</button>
+        <div class="form-row">
+            <button id="send" type="submit" name="send" class="col btn indigo w-50 text-white">Hinzufügen</button>
+            <a href="/events/user" class="col btn indigo ml-0 w-50 text-white border-none">Abbrechen</a>
+        </div>
     </form>
 </div>
