@@ -12,6 +12,7 @@ use App\View\View;
  */
 class UserController
 {
+    // redirect to index
     public function index()
     {
         $userRepository = new UserRepository();
@@ -23,6 +24,7 @@ class UserController
         $view->display();
     }
 
+    // redirect to register
     public function register()
     {
         $view = new View('user/register');
@@ -31,6 +33,7 @@ class UserController
         $view->display();
     }
 
+    // redirect to login
     public function login()
     {
         $view = new View('user/login');
@@ -39,6 +42,7 @@ class UserController
         $view->display();
     }
 
+    // redirect to doLogin
     public function doLogin()
     {
         $authenticator = new Authentication();
@@ -63,6 +67,7 @@ class UserController
         }
     }
 
+    // redirect to logout
     public function logout()
     {
         $authenticator = new Authentication();
@@ -71,6 +76,7 @@ class UserController
         header('Location: /user/login');
     }
 
+    // redirect to doCreate
     public function doCreate()
     {
         if (isset($_POST['send'])) {
@@ -106,6 +112,7 @@ class UserController
         header('Location: /user/profile');
     }
 
+    // redirect to profile
     public function profile()
     {
         $authenticator = new Authentication();
@@ -125,6 +132,7 @@ class UserController
         $view->display();
     }
 
+    // save changes from input
     public function saveChangeUser()
     {
         //start session if it doesn't exist
@@ -170,6 +178,7 @@ class UserController
         }
     }
 
+    // delete user
     public function delete()
     {
         $userRepository = new UserRepository();
@@ -179,6 +188,7 @@ class UserController
         header('Location: /user');
     }
 
+    // get request from user
     public function query()
     {
         // User id über get request holen
