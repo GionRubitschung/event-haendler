@@ -110,29 +110,6 @@ class UserController
         $view->display();
     }
 
-    public function changeUser()
-    {
-        $authenticator = new Authentication();
-
-        //start session if it doesn't exist
-        if (session_status() == PHP_SESSION_NONE) {
-            session_start();
-        }
-
-        // get user by id
-        $user = $authenticator->getAuthenticatedUser();
-
-        // create data-populated view of changeUser site
-        $view = new View('user/changeCredentials');
-        $view->title = 'Profil';
-        $view->heading = 'Benutzerdaten ändern';
-        $view->username = htmlspecialchars($user->username);
-        $view->lastname = htmlspecialchars($user->name);
-        $view->firstname = htmlspecialchars($user->firstname);
-        $view->email = htmlspecialchars($user->email);
-        $view->display();
-    }
-
     public function saveChangeUser()
     {
         //start session if it doesn't exist

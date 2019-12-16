@@ -41,8 +41,8 @@
 	</form>
 </div>
 <div>
-	<a>Zum Login</a><br>
-	<a>Zurück zur Startseite</a>
+	<a href="/user/login">Zum Login</a><br>
+	<a href="/">Zurück zur Startseite</a>
 </div>
 
 <!-- Import Scripts here-->
