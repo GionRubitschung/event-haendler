@@ -88,6 +88,21 @@ class UserController
         }
 
         // Anfrage an die URI /user weiterleiten (HTTP 302)
+        $authenticator = new Authentication();
+        $validator = new Validator();
+        $validator->sanitizeData();
+        
+        if ($authenticator->login($email, $password)) {
+            // Anfrage an die URI /user/profile weiterleiten (HTTP 302)
+            header('Location: /user/profile');
+        } else {
+            // Create new login view, with error
+            $view = new View('user/login');
+            $view->title = 'Login';
+            $view->heading = 'Login';
+            $view->error = true;
+            $view->display();
+        }
         header('Location: /user/profile');
     }
 
